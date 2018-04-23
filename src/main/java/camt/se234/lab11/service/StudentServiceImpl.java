@@ -1,5 +1,6 @@
 package camt.se234.lab11.service;
 
+import camt.se234.lab11.Exceptions.NoDataException;
 import camt.se234.lab11.dao.StudentDao;
 import camt.se234.lab11.entity.Student;
 
@@ -21,7 +22,8 @@ public class StudentServiceImpl implements StudentService {
                 return student;
             }
         }
-        return null;
+//        return null;
+        throw new NoDataException();
     }
 
     @Override
