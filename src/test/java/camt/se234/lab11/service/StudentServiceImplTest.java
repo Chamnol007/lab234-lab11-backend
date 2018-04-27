@@ -62,6 +62,19 @@ public class StudentServiceImplTest {
     }
 
     @Test
+    public void testGetAverageGpa(){
+//        StudentDao studentDao = mock(StudentDao.class);
+        List<Student> mockStudents = new ArrayList<>();
+//        StudentServiceImpl studentService = new StudentServiceImpl();
+//        studentService.setStudentDao(studentDao);
+        mockStudents.add(new Student("123","A","temp",2.33));
+        mockStudents.add(new Student("124","B","temp",2.33));
+        mockStudents.add(new Student("223","C","temp",2.33));
+        mockStudents.add(new Student("224","D","temp",2.33));
+        when(studentDao.findAll()).thenReturn(mockStudents);
+        assertThat(studentService.getAverageGpa(),is(2.33));
+    }
+    @Test
     public void testFindByPartOfId(){
 //        StudentDao studentDao = mock(StudentDao.class);
         List<Student> mockStudents = new ArrayList<>();
@@ -86,5 +99,21 @@ public class StudentServiceImplTest {
 
         when(studentDao.findAll()).thenReturn(mockStudents);
         assertThat(studentService.findStudentById("55"),nullValue());
+    }
+    @Test(expected = NoDataException.class)
+    public void testArraySizeIsZero(){
+        List<Student> mockStudents = new ArrayList<>();
+//        mockStudents.add(new Student("123","A","temp",2.33));
+
+        when(studentDao.findAll()).thenReturn(mockStudents);
+        assertThat(studentService.findStudentByPartOfId(""),nullValue());
+    }
+    @Test(expected = ArithmeticException.class)
+    public void testDevideByZero(){
+        List<Student> mockStudents = new ArrayList<>();
+//        mockStudents.add(new Student("123","A","temp",2.33));
+
+        when(studentDao.findAll()).thenReturn(mockStudents);
+        assertThat(studentService.getAverageGpa(),nullValue());
     }
 }
